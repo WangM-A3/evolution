@@ -1,0 +1,23 @@
+{
+  "verification_id": "VR-20260413162035495237",
+  "change_id": "PAT-90272dda245a",
+  "checkpoint_id": "CP-20260413162034",
+  "failed_at": "2026-04-13T16:20:41.615937",
+  "status": "rolled_back",
+  "error_message": "Stage 2 (regression test) failed",
+  "change_type": "RULE_ADD",
+  "change_description": "## PAT-90272dda245a: timeout\n**触发条件**: 问题文本包含 [timeout] 关键词之一\n**出现次数**: 3 次\n**根因假设**: 可能与以下因素相关：timeout。需进一步日志分析确认。\n**建议操作**: 建议检查与「timeout」相关的处理逻辑，参考样本中的错误模式进行修复\n**首次出现**: 2026-04-13T16:20:20.854337 | **最近**: 2026-04-13T16:20:20.854352\n",
+  "test_results": {
+    "stage1": {
+      "checks": [],
+      "passed": true,
+      "errors": []
+    },
+    "stage2": {
+      "test_command": "python -m pytest tests -q --tb=short",
+      "passed": false,
+      "output": "\n=============================== warnings summary ===============================\n../../../../usr/local/lib/python3.13/dist-packages/_pytest/config/__init__.py:1428\n  /usr/local/lib/python3.13/dist-packages/_pytest/config/__init__.py:1428: PytestConfigWarning: Unknown config option: fail_under\n  \n    self._warn_or_fail_if_strict(f\"Unknown config option: {key}\\n\")\n\n../../../../usr/local/lib/python3.13/dist-packages/_pytest/config/__init__.py:1428\n  /usr/local/lib/python3.13/dist-packages/_pytest/config/__init__.py:1428: PytestConfigWarning: Unknown config option: test_file_suffix\n  \n    self._warn_or_fail_if_strict(f\"Unknown config option: {key}\\n\")\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n2 warnings in 2.82s\n",
+      "returncode": 5
+    }
+  }
+}

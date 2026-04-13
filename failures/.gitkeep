@@ -1,0 +1,4 @@
+# M-A3 初始失败记录
+# 本目录由进化系统自动维护
+# 文件格式：failure_{EVT-ID}.json
+# 由 verification.py 的 _log_failure() 方法写入

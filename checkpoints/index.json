@@ -1,0 +1,116 @@
+[
+  {
+    "checkpoint_id": "CP-20260413161638",
+    "created_at": "2026-04-13T16:16:38.557843",
+    "description": "test checkpoint",
+    "status": "ACTIVE",
+    "files_snapshotted": {
+      "evolution/genes.json": "592754d630bcb3c1",
+      "evolution/capsules.json": "798c7c9d6516458a",
+      "evolution/config.yaml": "9d090aeb9e21030b",
+      "evolution/config.py": "f0fb864941466952",
+      "MEMORY.md": "c57fb10481ff8b36",
+      "基础设定/SOUL.md": "753c7cb5b47b3193"
+    },
+    "metrics_snapshot": {
+      "test": 1.0
+    },
+    "parent_checkpoint": null,
+    "change_description": "",
+    "rollback_count": 0
+  },
+  {
+    "checkpoint_id": "CP-20260413161705",
+    "created_at": "2026-04-13T16:17:05.007858",
+    "description": "test checkpoint",
+    "status": "ACTIVE",
+    "files_snapshotted": {
+      "evolution/genes.json": "592754d630bcb3c1",
+      "evolution/capsules.json": "798c7c9d6516458a",
+      "evolution/config.yaml": "9d090aeb9e21030b",
+      "evolution/config.py": "f0fb864941466952",
+      "MEMORY.md": "c57fb10481ff8b36",
+      "基础设定/SOUL.md": "753c7cb5b47b3193"
+    },
+    "metrics_snapshot": {
+      "test": 1.0
+    },
+    "parent_checkpoint": null,
+    "change_description": "",
+    "rollback_count": 0
+  },
+  {
+    "checkpoint_id": "CP-20260413161733",
+    "created_at": "2026-04-13T16:17:33.541843",
+    "description": "test checkpoint",
+    "status": "ACTIVE",
+    "files_snapshotted": {
+      "evolution/genes.json": "592754d630bcb3c1",
+      "evolution/capsules.json": "798c7c9d6516458a",
+      "evolution/config.yaml": "9d090aeb9e21030b",
+      "evolution/config.py": "f0fb864941466952",
+      "MEMORY.md": "c57fb10481ff8b36",
+      "基础设定/SOUL.md": "753c7cb5b47b3193"
+    },
+    "metrics_snapshot": {
+      "success_rate": 0.95
+    },
+    "parent_checkpoint": null,
+    "change_description": "",
+    "rollback_count": 0
+  },
+  {
+    "checkpoint_id": "CP-20260413162020",
+    "created_at": "2026-04-13T16:20:20.978376",
+    "description": "Before applying rule: PAT-a2660eeedf9c",
+    "status": "ROLLED_BACK",
+    "files_snapshotted": {
+      "evolution/genes.json": "592754d630bcb3c1",
+      "evolution/capsules.json": "798c7c9d6516458a",
+      "evolution/config.yaml": "9d090aeb9e21030b",
+      "evolution/rules/PAT-a2660eeedf9c.md": "file_not_found"
+    },
+    "metrics_snapshot": {
+      "pattern_importance": 0.6417
+    },
+    "parent_checkpoint": null,
+    "change_description": "New rule from pattern PAT-a2660eeedf9c",
+    "rollback_count": 1
+  },
+  {
+    "checkpoint_id": "CP-20260413162028",
+    "created_at": "2026-04-13T16:20:28.644829",
+    "description": "Before applying rule: PAT-2296bcc3c67c",
+    "status": "ROLLED_BACK",
+    "files_snapshotted": {
+      "evolution/genes.json": "592754d630bcb3c1",
+      "evolution/capsules.json": "798c7c9d6516458a",
+      "evolution/config.yaml": "9d090aeb9e21030b",
+      "evolution/rules/PAT-2296bcc3c67c.md": "file_not_found"
+    },
+    "metrics_snapshot": {
+      "pattern_importance": 0.5917
+    },
+    "parent_checkpoint": null,
+    "change_description": "New rule from pattern PAT-2296bcc3c67c",
+    "rollback_count": 1
+  },
+  {
+    "checkpoint_id": "CP-20260413162034",
+    "created_at": "2026-04-13T16:20:34.902319",
+    "description": "Before applying rule: PAT-90272dda245a",
+    "status": "ROLLED_BACK",
+    "files_snapshotted": {
+      "evolution/genes.json": "592754d630bcb3c1",
+      "evolution/capsules.json": "798c7c9d6516458a",
+      "evolution/config.yaml": "9d090aeb9e21030b",
+      "evolution/rules/PAT-90272dda245a.md": "file_not_found"
+    },
+    "metrics_snapshot": {
+      "pattern_importance": 0.5917
+    },
+    "parent_checkpoint": null,
+    "change_description": "New rule from pattern PAT-90272dda245a",
+    "rollback_count": 1
+  }
+]

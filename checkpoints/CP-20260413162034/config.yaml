@@ -1,0 +1,84 @@
+# M-A3 Self-Evolution System Config
+# ==================================
+# 配置文件：所有参数均可调整，无需修改代码
+# 加载方式：EvolutionConfig.from_yaml("evolution/config.yaml")
+
+checkpoints_dir: "evolution/checkpoints"
+rules_dir: "evolution/rules"
+failures_dir: "evolution/failures"
+events_file: "evolution/events.jsonl"
+learnings_dir: "learnings"
+
+# ─────────────────────────────────────────────
+# 触发器配置
+# ─────────────────────────────────────────────
+
+performance_trigger:
+  enabled: true
+  threshold_p95: 5.0          # P95 响应时间阈值（秒）
+  threshold_avg10: 3.0       # 最近10次平均响应时间阈值（秒）
+  threshold_single: 10.0     # 单次最大允许响应时间（秒）
+  window_size: 100           # 历史窗口大小
+  priority: 1                # 优先级 1=最高
+  cool_down_seconds: 300     # 冷却时间（秒）
+
+failure_trigger:
+  enabled: true
+  consecutive_threshold: 3  # 连续失败触发阈值
+  total_threshold: 20       # 累计失败触发阈值
+  time_window_hours: 24     # 时间窗口（小时）
+  priority: 1
+  cool_down_seconds: 300
+
+pattern_trigger:
+  enabled: true
+  min_occurrence: 3         # 最小出现次数
+  priority: 2
+
+feedback_trigger:
+  enabled: true
+  threshold_negative: 5      # 累计负反馈阈值
+  threshold_sequence: 3      # 连续负反馈阈值
+  ratio_threshold: 0.7       # 负反馈占比阈值
+  window_size: 20            # 采样窗口大小
+  priority: 2
+
+schedule_trigger:
+  enabled: true
+  schedule_type: "DAILY"     # HOURLY / DAILY / WEEKLY
+  hour_of_day: 9             # UTC 时间
+  day_of_week: 1             # 1=周一
+  priority: 3
+
+drift_trigger:
+  enabled: true
+  response_time_drift_threshold: 0.3   # 响应时间漂移阈值（30%）
+  success_rate_drift_threshold: 0.15  # 成功率下降阈值（15%）
+  token_usage_drift_threshold: 0.4    # Token使用漂移阈值（40%）
+  priority: 2
+
+# ─────────────────────────────────────────────
+# 模式聚合配置
+# ─────────────────────────────────────────────
+
+aggregator:
+  min_issues_for_pattern: 2       # 形成模式的最小问题数
+  max_samples_per_pattern: 10    # 每个模式的最大样本数
+  rules_dir: "evolution/rules"   # 用于去重的现有规则目录
+  failures_dir: "evolution/failures"
+
+# ─────────────────────────────────────────────
+# 验证闭环配置
+# ─────────────────────────────────────────────
+
+verification:
+  stable_threshold: 3        # 连续通过多少次才标记为稳定
+  auto_approve_low_risk: true  # 低风险变更自动批准
+
+# ─────────────────────────────────────────────
+# 进化引擎配置
+# ─────────────────────────────────────────────
+
+engine:
+  max_changes_per_cycle: 3   # 每个周期最多应用多少个变更
+  force_run_enabled: false  # 是否允许无触发时强制运行

@@ -1,0 +1,35 @@
+[
+  {
+    "pattern_id": "PAT-a2660eeedf9c",
+    "rule_text": "## PAT-a2660eeedf9c: 数据库连接超时\n**触发条件**: 问题文本包含 [数据库连接超时] 关键词之一\n**出现次数**: 3 次\n**根因假设**: 可能与以下因素相关：数据库连接超时。需进一步日志分析确认。\n**建议操作**: 建议检查与「数据库连接超时」相关的处理逻辑，参考样本中的错误模式进行修复\n**首次出现**: 2026-04-13T16:20:20.854261 | **最近**: 2026-04-13T16:20:20.854273\n",
+    "rule_code": "def match_PAT-a2660eeedf9c(text: str) -> bool:\n    \"\"\"自动生成规则，匹配: ['数据库连接超时']\"\"\"\n    import re\n    return re.search(r'\\b数据库连接超时\\b', text, re.I)\n",
+    "trigger_keywords": [
+      "数据库连接超时"
+    ],
+    "priority": 2,
+    "target_file": "rules/CRITICAL.md",
+    "rationale": "模式「PAT-a2660eeedf9c」由 3 个相似问题聚合而生，平均严重程度 4.0/5，新颖性评分 0.64。建议添加此规则以防止类似问题重复发生。"
+  },
+  {
+    "pattern_id": "PAT-2296bcc3c67c",
+    "rule_text": "## PAT-2296bcc3c67c: 测试问题重复出现\n**触发条件**: 问题文本包含 [测试问题重复出现] 关键词之一\n**出现次数**: 2 次\n**根因假设**: 可能与以下因素相关：测试问题重复出现。需进一步日志分析确认。\n**建议操作**: 建议检查与「测试问题重复出现」相关的处理逻辑，参考样本中的错误模式进行修复\n**首次出现**: 2026-04-13T16:20:20.853911 | **最近**: 2026-04-13T16:20:20.853931\n",
+    "rule_code": "def match_PAT-2296bcc3c67c(text: str) -> bool:\n    \"\"\"自动生成规则，匹配: ['测试问题重复出现']\"\"\"\n    import re\n    return re.search(r'\\b测试问题重复出现\\b', text, re.I)\n",
+    "trigger_keywords": [
+      "测试问题重复出现"
+    ],
+    "priority": 2,
+    "target_file": "rules/CRITICAL.md",
+    "rationale": "模式「PAT-2296bcc3c67c」由 2 个相似问题聚合而生，平均严重程度 3.5/5，新颖性评分 0.59。建议添加此规则以防止类似问题重复发生。"
+  },
+  {
+    "pattern_id": "PAT-90272dda245a",
+    "rule_text": "## PAT-90272dda245a: timeout\n**触发条件**: 问题文本包含 [timeout] 关键词之一\n**出现次数**: 3 次\n**根因假设**: 可能与以下因素相关：timeout。需进一步日志分析确认。\n**建议操作**: 建议检查与「timeout」相关的处理逻辑，参考样本中的错误模式进行修复\n**首次出现**: 2026-04-13T16:20:20.854337 | **最近**: 2026-04-13T16:20:20.854352\n",
+    "rule_code": "def match_PAT-90272dda245a(text: str) -> bool:\n    \"\"\"自动生成规则，匹配: ['timeout']\"\"\"\n    import re\n    return re.search(r'\\btimeout\\b', text, re.I)\n",
+    "trigger_keywords": [
+      "timeout"
+    ],
+    "priority": 2,
+    "target_file": "rules/CRITICAL.md",
+    "rationale": "模式「PAT-90272dda245a」由 3 个相似问题聚合而生，平均严重程度 3.0/5，新颖性评分 0.59。建议添加此规则以防止类似问题重复发生。"
+  }
+]

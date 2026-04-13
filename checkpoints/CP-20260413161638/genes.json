@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "genome_name": "M-A3",
+  "description": "M-A3 GEP 基因组定义：可进化参数集合，驱动自进化系统的适应性调整",
+  "last_updated": "2026-04-13T00:00:00+08:00",
+
+  "genes": {
+    "response_threshold_gene": {
+      "gene_id": "G-RT-001",
+      "description": "响应时间阈值基因：控制系统对慢响应的敏感度",
+      "default_value": 5.0,
+      "min_value": 0.5,
+      "max_value": 30.0,
+      "mutation_rate": 0.1,
+      "current_value": 5.0,
+      "evolvable": true,
+      "unit": "seconds",
+      "trigger_affected": ["PerformanceTrigger"]
+    },
+
+    "failure_sensitivity_gene": {
+      "gene_id": "G-FS-001",
+      "description": "失败敏感度基因：控制系统对失败模式的容忍阈值",
+      "default_value": 3,
+      "min_value": 1,
+      "max_value": 10,
+      "mutation_rate": 0.15,
+      "current_value": 3,
+      "evolvable": true,
+      "unit": "count",
+      "trigger_affected": ["FailureTrigger"]
+    },
+
+    "pattern_recognition_gene": {
+      "gene_id": "G-PR-001",
+      "description": "模式识别基因：控制相似问题的聚合阈值",
+      "default_value": 3,
+      "min_value": 2,
+      "max_value": 20,
+      "mutation_rate": 0.12,
+      "current_value": 3,
+      "evolvable": true,
+      "unit": "occurrences",
+      "trigger_affected": ["PatternTrigger"]
+    },
+
+    "feedback_weight_gene": {
+      "gene_id": "G-FW-001",
+      "description": "反馈权重基因：控制用户反馈对系统的影响系数",
+      "default_value": 0.7,
+      "min_value": 0.3,
+      "max_value": 0.95,
+      "mutation_rate": 0.08,
+      "current_value": 0.7,
+      "evolvable": true,
+      "unit": "ratio",
+      "trigger_affected": ["FeedbackTrigger"]
+    },
+
+    "drift_tolerance_gene": {
+      "gene_id": "G-DT-001",
+      "description": "漂移容忍基因：控制系统对行为漂移的容忍度",
+      "default_value": 0.3,
+      "min_value": 0.05,
+      "max_value": 0.5,
+      "mutation_rate": 0.1,
+      "current_value": 0.3,
+      "evolvable": true,
+      "unit": "ratio",
+      "trigger_affected": ["DriftTrigger"]
+    },
+
+    "checkpoint_retention_gene": {
+      "gene_id": "G-CR-001",
+      "description": "检查点保留基因：控制系统保留历史检查点的数量",
+      "default_value": 10,
+      "min_value": 3,
+      "max_value": 50,
+      "mutation_rate": 0.05,
+      "current_value": 10,
+      "evolvable": false,
+      "unit": "count",
+      "trigger_affected": ["VerificationLoop"]
+    },
+
+    "evolution_cool_down_gene": {
+      "gene_id": "G-CD-001",
+      "description": "进化冷却基因：控制连续进化之间的最小间隔",
+      "default_value": 300,
+      "min_value": 60,
+      "max_value": 3600,
+      "mutation_rate": 0.1,
+      "current_value": 300,
+      "evolvable": true,
+      "unit": "seconds",
+      "trigger_affected": ["BaseTrigger"]
+    }
+  },
+
+  "evolution_policy": {
+    "mutation_strategy": "gaussian_bounded",
+    "crossover_enabled": false,
+    "fitness_metric": "pattern_importance_score",
+    "selection_strategy": "tournament",
+    "tournament_size": 3,
+    "elitism_count": 2,
+    "max_generations_per_cycle": 5
+  },
+
+  "adaptation_history": []
+}

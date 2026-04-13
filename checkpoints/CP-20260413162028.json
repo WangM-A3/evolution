@@ -1,0 +1,18 @@
+{
+  "checkpoint_id": "CP-20260413162028",
+  "created_at": "2026-04-13T16:20:28.644829",
+  "description": "Before applying rule: PAT-2296bcc3c67c",
+  "status": "ACTIVE",
+  "files_snapshotted": {
+    "evolution/genes.json": "592754d630bcb3c1",
+    "evolution/capsules.json": "798c7c9d6516458a",
+    "evolution/config.yaml": "9d090aeb9e21030b",
+    "evolution/rules/PAT-2296bcc3c67c.md": "file_not_found"
+  },
+  "metrics_snapshot": {
+    "pattern_importance": 0.5917
+  },
+  "parent_checkpoint": null,
+  "change_description": "New rule from pattern PAT-2296bcc3c67c",
+  "rollback_count": 0
+}

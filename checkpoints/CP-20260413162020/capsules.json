@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "capsule_registry_name": "M-A3 Capability Capsules",
+  "description": "M-A3 能力胶囊注册表：封装和版本化管理进化产出的能力模块",
+  "last_updated": "2026-04-13T00:00:00+08:00",
+
+  "capsules": {},
+
+  "capsule_schema": {
+    "capsule_id": "唯一标识符，格式：CAP-{模块}-{序号}",
+    "name": "能力名称（中文）",
+    "description": "能力描述（50-200字）",
+    "version": "语义化版本号",
+    "trigger_conditions": ["触发条件列表"],
+    "capability_type": "pattern/rules/baseline/workflow",
+    "implementation": {
+      "language": "实现语言（python/js/yaml）",
+      "entry_point": "入口文件或函数",
+      "dependencies": ["依赖项"]
+    },
+    "promotion_info": {
+      "created_from_pattern": "来源模式ID",
+      "created_at": "创建时间",
+      "verified": "是否已验证",
+      "verified_at": "验证时间"
+    },
+    "metadata": {
+      "author": "M-A3",
+      "stability": "stable/beta/experimental",
+      "usage_count": 0,
+      "success_rate": 1.0
+    }
+  },
+
+  "usage_examples": {
+    "add_capsule": "使用 engine.add_capsule() 注册新能力胶囊",
+    "activate": "使用 engine.activate_capsule(capsule_id) 激活胶囊",
+    "deactivate": "使用 engine.deactivate_capsule(capsule_id) 停用胶囊"
+  }
+}

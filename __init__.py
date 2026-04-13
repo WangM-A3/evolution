@@ -1,0 +1,69 @@
+"""
+M-A3 Self-Evolution System
+==========================
+自进化系统核心包，按优先级实现：
+  P0: 触发器系统 (triggers.py) + 验证闭环 (verification.py)
+  P1: 模式聚合算法 (pattern_aggregator.py)
+  P2: GEP进化协议层完整实现 (protocol/, engine.py)
+
+目录结构：
+  evolution/
+  ├── __init__.py          # 本文件
+  ├── triggers.py          # 六类自动触发器
+  ├── pattern_aggregator.py # 模式聚合算法
+  ├── verification.py      # 验证闭环
+  ├── engine.py             # 进化引擎
+  ├── config.py             # 配置加载器
+  ├── config.yaml           # YAML配置文件
+  ├── genes.json            # 基因定义（可进化参数）
+  ├── capsules.json         # 能力胶囊（封装技能）
+  ├── events.jsonl          # 进化事件日志
+  ├── checkpoints/           # 检查点存储
+  ├── rules/                # 生成的规则
+  ├── failures/              # 失败记录
+  └── capsules/              # 能力胶囊存储
+"""
+
+from evolution.triggers import (
+    PerformanceTrigger,
+    FailureTrigger,
+    PatternTrigger,
+    FeedbackTrigger,
+    ScheduleTrigger,
+    DriftTrigger,
+    TriggerResult,
+    TriggerType,
+    TriggerManager,
+    BaseTrigger,
+)
+from evolution.pattern_aggregator import PatternAggregator, Pattern
+from evolution.verification import VerificationLoop, Checkpoint, VerificationResult
+from evolution.engine import EvolutionEngine, EvolutionEvent, EvolutionCycle
+from evolution.config import EvolutionConfig
+
+__all__ = [
+    # Triggers
+    "PerformanceTrigger",
+    "FailureTrigger",
+    "PatternTrigger",
+    "FeedbackTrigger",
+    "ScheduleTrigger",
+    "DriftTrigger",
+    "TriggerResult",
+    "TriggerType",
+    "TriggerManager",
+    "BaseTrigger",
+    # Aggregator
+    "PatternAggregator",
+    "Pattern",
+    # Verification
+    "VerificationLoop",
+    "Checkpoint",
+    "VerificationResult",
+    # Engine
+    "EvolutionEngine",
+    "EvolutionEvent",
+    "EvolutionCycle",
+    # Config
+    "EvolutionConfig",
+]

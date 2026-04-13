@@ -1,0 +1,64 @@
+[
+  {
+    "pattern_id": "PAT-a2660eeedf9c",
+    "fingerprint": "a2660eeedf9c",
+    "issue_count": 3,
+    "sample_texts": [
+      "数据库连接超时",
+      "数据库连接超时",
+      "数据库连接超时"
+    ],
+    "common_keywords": [
+      "数据库连接超时"
+    ],
+    "root_cause_hypothesis": "可能与以下因素相关：数据库连接超时。需进一步日志分析确认。",
+    "suggested_fix": "建议检查与「数据库连接超时」相关的处理逻辑，参考样本中的错误模式进行修复",
+    "severity_avg": 4.0,
+    "first_seen": "2026-04-13T16:20:20.854261",
+    "last_seen": "2026-04-13T16:20:20.854273",
+    "importance_score": 0.6417,
+    "is_novel": true,
+    "related_rule": null
+  },
+  {
+    "pattern_id": "PAT-2296bcc3c67c",
+    "fingerprint": "2296bcc3c67c",
+    "issue_count": 2,
+    "sample_texts": [
+      "测试问题重复出现",
+      "测试问题重复出现"
+    ],
+    "common_keywords": [
+      "测试问题重复出现"
+    ],
+    "root_cause_hypothesis": "可能与以下因素相关：测试问题重复出现。需进一步日志分析确认。",
+    "suggested_fix": "建议检查与「测试问题重复出现」相关的处理逻辑，参考样本中的错误模式进行修复",
+    "severity_avg": 3.5,
+    "first_seen": "2026-04-13T16:20:20.853911",
+    "last_seen": "2026-04-13T16:20:20.853931",
+    "importance_score": 0.5917,
+    "is_novel": true,
+    "related_rule": null
+  },
+  {
+    "pattern_id": "PAT-90272dda245a",
+    "fingerprint": "90272dda245a",
+    "issue_count": 3,
+    "sample_texts": [
+      "timeout",
+      "timeout",
+      "timeout"
+    ],
+    "common_keywords": [
+      "timeout"
+    ],
+    "root_cause_hypothesis": "可能与以下因素相关：timeout。需进一步日志分析确认。",
+    "suggested_fix": "建议检查与「timeout」相关的处理逻辑，参考样本中的错误模式进行修复",
+    "severity_avg": 3.0,
+    "first_seen": "2026-04-13T16:20:20.854337",
+    "last_seen": "2026-04-13T16:20:20.854352",
+    "importance_score": 0.5917,
+    "is_novel": true,
+    "related_rule": null
+  }
+]

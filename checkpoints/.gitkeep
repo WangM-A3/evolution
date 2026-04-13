@@ -1,0 +1,5 @@
+# M-A3 初始检查点目录
+# 本目录由进化系统自动维护
+# 存储检查点元数据：index.json, CP-*.json
+# 存储快照副本：CP-YYYYMMDDHHMMSS/{files}
+# 由 verification.py 的 create_checkpoint() 方法写入
