@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "genome_name": "M-A3",
   "description": "M-A3 GEP 基因组定义：可进化参数集合，驱动自进化系统的适应性调整",
-  "last_updated": "2026-04-13T00:00:00+08:00",
+  "last_updated": "2026-04-14T01:00:00+08:00",
 
   "genes": {
     "response_threshold_gene": {
@@ -94,9 +94,26 @@
       "evolvable": true,
       "unit": "seconds",
       "trigger_affected": ["BaseTrigger"]
+    },
+
+    "debug_trace_depth_gene": {
+      "gene_id": "G-DT-002",
+      "description": "调试追踪深度基因：控制系统对象身份追踪和短路分析的能力级别",
+      "default_value": 2,
+      "min_value": 1,
+      "max_value": 5,
+      "mutation_rate": 0.1,
+      "current_value": 2,
+      "evolvable": true,
+      "unit": "level",
+      "trigger_affected": ["FailureTrigger"],
+      "discovery_date": "2026-04-14",
+      "discovery_context": "调试AgentLauncher注册表短路时发现：AgentRegistry.__len__==0导致or运算符短路",
+      "lesson": "凡有__bool__或__len__的类，永远不用obj or fallback，只能用obj if obj is not None else fallback"
     }
   },
-
+  "genome_version": "1.1",
+  "last_updated": "2026-04-14T01:00:00+08:00",
   "evolution_policy": {
     "mutation_strategy": "gaussian_bounded",
     "crossover_enabled": false,
