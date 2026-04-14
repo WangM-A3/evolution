@@ -1,0 +1,55 @@
+{
+  "team_id": "TEAM-测试团队-20260413163514",
+  "name": "测试团队",
+  "strategy": "hierarchical",
+  "created_at": "2026-04-13T16:35:14.999334",
+  "members": [
+    {
+      "agent_id": "A1",
+      "name": "Explorer",
+      "role": "explorer",
+      "specialization": [
+        "test"
+      ],
+      "authority_level": 1,
+      "state_snapshot": {},
+      "last_sync": null
+    },
+    {
+      "agent_id": "A2",
+      "name": "Verifier",
+      "role": "verifier",
+      "specialization": [
+        "test"
+      ],
+      "authority_level": 2,
+      "state_snapshot": {},
+      "last_sync": null
+    }
+  ],
+  "status": "active",
+  "role_config": {
+    "explorer": {
+      "duty": "探索新模式/策略",
+      "authority": 1
+    },
+    "verifier": {
+      "duty": "验证假设/策略可行性",
+      "authority": 2
+    },
+    "synthesizer": {
+      "duty": "综合多方信息做决策",
+      "authority": 3
+    },
+    "critic": {
+      "duty": "批评分析，识别风险",
+      "authority": 2
+    }
+  },
+  "decision_history": [],
+  "performance_metrics": {
+    "decisions_adopted": 1,
+    "decisions_rejected": 0,
+    "total_votes": 2
+  }
+}

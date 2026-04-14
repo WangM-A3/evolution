@@ -1,0 +1,29 @@
+{
+  "capability_id": "SKL-CAP-TEST-001-20260413",
+  "source_capsule_id": "CAP-TEST-001",
+  "name": "测试能力",
+  "description": "这是一个测试能力，用于验证导出功能。",
+  "version": "1.1.0",
+  "tags": [
+    "test",
+    "demo"
+  ],
+  "trigger_conditions": [
+    "测试触发"
+  ],
+  "implementation_type": "pattern",
+  "author": "M-A3",
+  "exported_at": "2026-04-13T16:35:14.363968",
+  "rating": {
+    "overall": 0.8550000000000001,
+    "quality": 0.9,
+    "coverage": 0.8,
+    "usability": 0.85,
+    "ratings_count": 1,
+    "last_rated": "2026-04-13T16:35:14.688735"
+  },
+  "installs": 0,
+  "status": "published",
+  "changelog": "测试更新",
+  "breaking": false
+}

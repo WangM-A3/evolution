@@ -1,0 +1,12 @@
+{
+  "teams": {
+    "TEAM-测试团队-20260413163514": {
+      "name": "测试团队",
+      "strategy": "hierarchical",
+      "member_count": 2,
+      "path": "evolution/teams/TEAM-测试团队-20260413163514",
+      "status": "active"
+    }
+  },
+  "last_updated": "2026-04-13T16:35:15.267005"
+}

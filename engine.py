@@ -590,3 +590,439 @@ class EvolutionEngine:
             "total_promotions": len(promotions),
             "recent_cycles": cycles[-5:] if cycles else [],
         }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 业务驱动进化（Business-Driven Evolution）
+# 参考 Accio Work：根据生意进展迭代商业判断能力
+# ─────────────────────────────────────────────────────────────────────────────
+
+class BusinessDrivenEvolution:
+    """
+    业务驱动进化模块
+
+    核心职责：
+    - 追踪业务指标（任务完成率、用户满意度、决策质量）
+    - 评估每次决策的实际效果
+    - 动态调整进化策略参数
+    - 晋升表现优异的模式
+
+    进化方向：
+      track_business_metrics()     → 记录业务指标时间序列
+      evaluate_decision_quality()  → 评估决策质量
+      adjust_strategy()            → 基于效果调整基因参数
+      promote_successful_patterns()→ 晋升高效模式
+    """
+
+    def __init__(
+        self,
+        engine: EvolutionEngine,
+        metrics_file: str = "evolution/business_metrics.jsonl",
+    ):
+        self.engine = engine
+        self.metrics_file = Path(metrics_file)
+        self.metrics_file.parent.mkdir(parents=True, exist_ok=True)
+
+        # 业务指标滑动窗口（避免单点波动影响）
+        self._window_size = 50
+        self._metrics_window: list[dict] = []
+        self._decision_history: list[dict] = []
+
+        # 策略基因映射：指标类型 → 受影响的基因名
+        self._gene_map: dict[str, str] = {
+            "task_completion_rate": "feedback_weight_gene",
+            "avg_response_time": "response_threshold_gene",
+            "failure_rate": "failure_sensitivity_gene",
+            "pattern_recognition_rate": "pattern_recognition_gene",
+            "decision_success_rate": "drift_tolerance_gene",
+        }
+
+        # 指标阈值（触发基因调整）
+        self._thresholds: dict[str, dict] = {
+            "task_completion_rate": {"low": 0.6, "high": 0.9},
+            "avg_response_time": {"low": 1.0, "high": 8.0},
+            "failure_rate": {"low": 0.02, "high": 0.2},
+            "pattern_recognition_rate": {"low": 0.3, "high": 0.8},
+            "decision_success_rate": {"low": 0.5, "high": 0.85},
+        }
+
+        # 加载已有指标窗口
+        self._load_metrics_window()
+
+    # ── 核心方法 ──────────────────────────────────────────────────────────────
+
+    def track_business_metrics(self, snapshot: dict) -> dict:
+        """
+        记录业务指标快照并写入 metrics_file
+
+        Args:
+            snapshot: {
+                "task_completion_rate": 0.85,   # 任务完成率
+                "avg_response_time": 3.2,        # 平均响应时间（秒）
+                "failure_rate": 0.05,             # 失败率
+                "pattern_recognition_rate": 0.6,  # 模式识别命中率
+                "decision_success_rate": 0.72,    # 决策成功率（外部用户标记）
+                "user_satisfaction": 4.2,        # 用户满意度（1-5）
+                "evolution_cycle_count": 12,      # 累计进化周期数
+            }
+
+        Returns:
+            评估结果含当前窗口指标和调整建议
+        """
+        ts = datetime.utcnow().isoformat()
+        record = {"timestamp": ts, **snapshot}
+
+        # 写入文件
+        with open(self.metrics_file, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+        # 更新滑动窗口
+        self._metrics_window.append(record)
+        if len(self._metrics_window) > self._window_size:
+            self._metrics_window.pop(0)
+
+        # 评估调整需求
+        adjustment = self._evaluate_adjustment_needed()
+        self._log_business_event("METRICS_TRACKED", record, adjustment)
+
+        return {
+            "record": record,
+            "window_avg": self._compute_window_avg(),
+            "adjustment_needed": adjustment,
+            "window_size": len(self._metrics_window),
+        }
+
+    def evaluate_decision_quality(
+        self,
+        decision_id: str,
+        decision_context: dict,
+        outcome: dict,
+    ) -> dict:
+        """
+        评估单次决策质量，记录到决策历史
+
+        Args:
+            decision_id: 决策唯一标识
+            decision_context: 决策时的上下文（触发器类型、输入、策略参数）
+            outcome: {
+                "success": bool,
+                "task_completed": bool,
+                "response_time": float,
+                "error_type": Optional[str],
+                "user_rating": Optional[float],   # 1-5
+                "pattern_promoted": bool,
+            }
+
+        Returns:
+            质量评分（0-1）和改进建议
+        """
+        # 多维度评分
+        scores: dict[str, float] = {}
+
+        # 任务完成得分
+        scores["task_completion"] = 1.0 if outcome.get("task_completed") else 0.0
+
+        # 响应时间得分（基于基因阈值）
+        rt = outcome.get("response_time", 0)
+        threshold = self._get_gene_value("response_threshold_gene")
+        scores["response_quality"] = max(0.0, 1.0 - (rt / threshold)) if rt > 0 else 1.0
+
+        # 用户满意度得分
+        rating = outcome.get("user_rating")
+        scores["satisfaction"] = (rating / 5.0) if rating else 0.5
+
+        # 模式晋升得分
+        scores["pattern_promotion"] = 1.0 if outcome.get("pattern_promoted") else 0.0
+
+        # 综合质量分（加权平均）
+        weights = {"task_completion": 0.4, "response_quality": 0.2,
+                   "satisfaction": 0.2, "pattern_promotion": 0.2}
+        quality_score = sum(scores[k] * weights[k] for k in weights)
+
+        record = {
+            "decision_id": decision_id,
+            "timestamp": datetime.utcnow().isoformat(),
+            "decision_context": decision_context,
+            "outcome": outcome,
+            "quality_score": quality_score,
+            "dimension_scores": scores,
+        }
+        self._decision_history.append(record)
+
+        # 记录到触发器（反馈进化）
+        if quality_score < 0.4:
+            self.engine.record_feedback(
+                is_negative=True,
+                feedback_text=f"Decision {decision_id} low quality: {quality_score:.2f}",
+                context={"quality_score": quality_score, **decision_context},
+            )
+        else:
+            self.engine.record_feedback(
+                is_negative=False,
+                feedback_text=f"Decision {decision_id} quality: {quality_score:.2f}",
+                context={"quality_score": quality_score, **decision_context},
+            )
+
+        self._log_business_event("DECISION_EVALUATED", record, None)
+        return record
+
+    def adjust_strategy(self) -> dict:
+        """
+        基于业务指标窗口，动态调整基因参数
+
+        Returns:
+            调整结果：哪些基因被调整、调整幅度和方向
+        """
+        if len(self._metrics_window) < 5:
+            return {"status": "insufficient_data", "adjustments": []}
+
+        window_avg = self._compute_window_avg()
+        results: list[dict] = []
+
+        for metric_name, threshold in self._thresholds.items():
+            value = window_avg.get(metric_name)
+            if value is None:
+                continue
+
+            gene_name = self._gene_map.get(metric_name)
+            if not gene_name:
+                continue
+
+            # 读取基因定义
+            genes = self._load_genes()
+            gene = genes.get("genes", {}).get(gene_name)
+            if not gene or not gene.get("evolvable"):
+                continue
+
+            adjustment = self._compute_adjustment(
+                metric_name, value, threshold, gene
+            )
+            if adjustment["changed"]:
+                # 写回 genes.json
+                self._mutate_gene(gene_name, adjustment["new_value"])
+                results.append({
+                    "gene": gene_name,
+                    "metric": metric_name,
+                    "old_value": gene["current_value"],
+                    "new_value": adjustment["new_value"],
+                    "delta": adjustment["delta"],
+                    "reason": adjustment["reason"],
+                    "window_avg": value,
+                })
+                self._log_business_event(
+                    "GENE_ADJUSTED",
+                    {"gene": gene_name, "adjustment": adjustment},
+                    None,
+                )
+
+        return {"status": "adjusted", "adjustments": results, "window_avg": window_avg}
+
+    def promote_successful_patterns(self) -> list[dict]:
+        """
+        从决策历史中识别持续成功的模式，晋升到能力胶囊
+
+        Returns:
+            被晋升的模式列表
+        """
+        if len(self._decision_history) < 5:
+            return []
+
+        # 分析最近N个决策中成功率≥80%的模式
+        recent = self._decision_history[-20:]
+        patterns_by_context: dict[str, list] = defaultdict(list)
+
+        for decision in recent:
+            ctx = decision.get("decision_context", {})
+            trigger_type = ctx.get("trigger_type", "unknown")
+            patterns_by_context[trigger_type].append(decision["quality_score"])
+
+        # 计算每个触发类型的平均质量
+        avg_by_trigger = {
+            trigger: sum(scores) / len(scores)
+            for trigger, scores in patterns_by_context.items()
+        }
+
+        promoted = []
+        for trigger_type, avg_score in avg_by_trigger.items():
+            if avg_score >= 0.75:
+                # 晋升为能力胶囊
+                capsule_id = f"CAP-{trigger_type.upper()}-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+                capsule = {
+                    "capsule_id": capsule_id,
+                    "name": f"{trigger_type} 高效模式",
+                    "description": (
+                        f"基于 {trigger_type} 触发的决策历史，"
+                        f"平均质量 {avg_score:.2f}，共 {len(patterns_by_context[trigger_type])} 条记录"
+                    ),
+                    "version": "1.0.0",
+                    "capability_type": "pattern",
+                    "trigger_conditions": [trigger_type],
+                    "promotion_info": {
+                        "avg_quality_score": avg_score,
+                        "sample_size": len(patterns_by_context[trigger_type]),
+                        "created_at": datetime.utcnow().isoformat(),
+                        "verified": True,
+                    },
+                    "metadata": {
+                        "author": "BusinessDrivenEvolution",
+                        "stability": "stable",
+                        "usage_count": 0,
+                        "success_rate": avg_score,
+                    },
+                }
+                self._save_capsule(capsule)
+                promoted.append(capsule)
+                self._log_business_event(
+                    "PATTERN_PROMOTED",
+                    {"capsule": capsule, "avg_score": avg_score},
+                    None,
+                )
+
+        return promoted
+
+    # ── 辅助方法 ──────────────────────────────────────────────────────────────
+
+    def _load_metrics_window(self):
+        """从文件加载最近的指标窗口"""
+        if not self.metrics_file.exists():
+            return
+        lines = self.metrics_file.read_text(encoding="utf-8").strip().splitlines()
+        for line in lines[-self._window_size:]:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                self._metrics_window.append(json.loads(line))
+            except json.JSONDecodeError:
+                pass
+
+    def _compute_window_avg(self) -> dict:
+        """计算滑动窗口内各指标均值"""
+        if not self._metrics_window:
+            return {}
+        keys = ["task_completion_rate", "avg_response_time", "failure_rate",
+                "pattern_recognition_rate", "decision_success_rate", "user_satisfaction"]
+        result = {}
+        for key in keys:
+            values = [m.get(key) for m in self._metrics_window if m.get(key) is not None]
+            if values:
+                result[key] = sum(values) / len(values)
+        return result
+
+    def _evaluate_adjustment_needed(self) -> dict:
+        """判断哪些指标需要调整"""
+        if len(self._metrics_window) < 5:
+            return {"needs_adjustment": False}
+        avg = self._compute_window_avg()
+        needs: list[dict] = []
+        for metric, threshold in self._thresholds.items():
+            val = avg.get(metric)
+            if val is None:
+                continue
+            if val < threshold["low"]:
+                needs.append({"metric": metric, "direction": "down", "value": val, "threshold": threshold})
+            elif val > threshold["high"]:
+                needs.append({"metric": metric, "direction": "up", "value": val, "threshold": threshold})
+        return {"needs_adjustment": len(needs) > 0, "items": needs}
+
+    def _compute_adjustment(
+        self,
+        metric_name: str,
+        value: float,
+        threshold: dict,
+        gene: dict,
+    ) -> dict:
+        """计算单个基因的调整量"""
+        current = gene["current_value"]
+        min_v, max_v = gene["min_value"], gene["max_value"]
+        mutation_rate = gene.get("mutation_rate", 0.1)
+
+        # 根据偏离方向决定调整方向
+        if value < threshold["low"]:
+            # 指标偏低，需要基因做出补偿（调整方向取决于基因语义）
+            direction = "increase" if metric_name in ("task_completion_rate", "pattern_recognition_rate", "decision_success_rate") else "decrease"
+        elif value > threshold["high"]:
+            direction = "decrease" if metric_name in ("task_completion_rate", "pattern_recognition_rate", "decision_success_rate") else "increase"
+        else:
+            return {"changed": False, "reason": "within_threshold"}
+
+        # 限制调整幅度不超过 mutation_rate
+        max_change = (max_v - min_v) * mutation_rate
+        if direction == "increase":
+            new_val = min(max_v, current + max_change)
+        else:
+            new_val = max(min_v, current - max_change)
+
+        changed = abs(new_val - current) > 0.001 * (max_v - min_v)
+        return {
+            "changed": changed,
+            "new_value": new_val,
+            "delta": new_val - current,
+            "reason": f"{direction} due to {metric_name}={value:.3f}",
+        }
+
+    def _get_gene_value(self, gene_name: str) -> float:
+        genes = self._load_genes()
+        gene = genes.get("genes", {}).get(gene_name, {})
+        return gene.get("current_value", 1.0)
+
+    def _load_genes(self) -> dict:
+        genes_path = Path("evolution/genes.json")
+        if genes_path.exists():
+            return json.loads(genes_path.read_text(encoding="utf-8"))
+        return {"genes": {}}
+
+    def _mutate_gene(self, gene_name: str, new_value: float):
+        genes = self._load_genes()
+        if gene_name in genes.get("genes", {}):
+            genes["genes"][gene_name]["current_value"] = new_value
+            genes["last_updated"] = datetime.utcnow().isoformat()
+            Path("evolution/genes.json").write_text(
+                json.dumps(genes, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+            logger.info(f"[BusinessDrivenEvolution] Gene mutated: {gene_name} = {new_value}")
+
+    def _save_capsule(self, capsule: dict):
+        capsules_path = Path("evolution/capsules.json")
+        data = {"capsules": {}, "schema_version": "1.0", "last_updated": datetime.utcnow().isoformat()}
+        if capsules_path.exists():
+            try:
+                data = json.loads(capsules_path.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+        data["capsules"][capsule["capsule_id"]] = capsule
+        data["last_updated"] = datetime.utcnow().isoformat()
+        capsules_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        logger.info(f"[BusinessDrivenEvolution] Capsule saved: {capsule['capsule_id']}")
+
+    def _log_business_event(self, phase: str, data: dict, adjustment: Optional[dict]):
+        """记录业务进化事件"""
+        event = EvolutionEvent(
+            event_id=f"BIZ-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}",
+            timestamp=datetime.utcnow().isoformat(),
+            phase=phase,
+            trigger_type=None,
+            trigger_reason=None,
+            severity=0,
+            pattern_id=None,
+            change_id=None,
+            verification_status=None,
+            rollback_performed=False,
+            promoted=phase == "PATTERN_PROMOTED",
+            metadata={"business_data": data, "adjustment": adjustment} if adjustment else {"business_data": data},
+        )
+        with open(self.engine.events_file, "a", encoding="utf-8") as f:
+            f.write(event.to_jsonl() + "\n")
+
+    def get_business_summary(self) -> dict:
+        """获取业务进化摘要"""
+        return {
+            "metrics_window_size": len(self._metrics_window),
+            "window_avg": self._compute_window_avg(),
+            "decisions_tracked": len(self._decision_history),
+            "recent_decision_avg_quality": (
+                sum(d["quality_score"] for d in self._decision_history[-20:]) / min(20, len(self._decision_history))
+                if self._decision_history else None
+            ),
+            "adjustment_needed": self._evaluate_adjustment_needed(),
+        }

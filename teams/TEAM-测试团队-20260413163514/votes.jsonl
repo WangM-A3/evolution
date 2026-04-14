@@ -1,0 +1,1 @@
+{"decision_id": "DEC-20260413163515344463", "team_id": "TEAM-测试团队-20260413163514", "topic": "测试决策", "votes": {"A1": "adopt", "A2": "adopt"}, "weights": {"A1": 1.0, "A2": 2.0}, "result": "adopted", "reasoning": "决策主题：测试决策\n投票分布：{'adopt': 1.0}\n加权得分最高：adopt (100.00%)\n最终结果：adopted\n参与 Agent：2", "timestamp": "2026-04-13T16:35:15.344513", "participants": ["A1", "A2"]}

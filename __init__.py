@@ -38,7 +38,9 @@ from evolution.triggers import (
 )
 from evolution.pattern_aggregator import PatternAggregator, Pattern
 from evolution.verification import VerificationLoop, Checkpoint, VerificationResult
-from evolution.engine import EvolutionEngine, EvolutionEvent, EvolutionCycle
+from evolution.engine import EvolutionEngine, EvolutionEvent, EvolutionCycle, BusinessDrivenEvolution
+from evolution.sharing import CapabilitySharing, CapabilityExport, CapabilityRating
+from evolution.collaborative import CollaborativeEvolution, AgentMember, TeamDecision, SharedEvolutionState
 from evolution.config import EvolutionConfig
 
 __all__ = [
@@ -64,6 +66,17 @@ __all__ = [
     "EvolutionEngine",
     "EvolutionEvent",
     "EvolutionCycle",
+    # Business-Driven Evolution (NEW)
+    "BusinessDrivenEvolution",
+    # Capability Sharing (NEW)
+    "CapabilitySharing",
+    "CapabilityExport",
+    "CapabilityRating",
+    # Collaborative Evolution (NEW)
+    "CollaborativeEvolution",
+    "AgentMember",
+    "TeamDecision",
+    "SharedEvolutionState",
     # Config
     "EvolutionConfig",
 ]

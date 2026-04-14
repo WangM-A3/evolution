@@ -475,4 +475,289 @@ if cycle:
 
 ---
 
-*M-A3 Self-Evolution System v1.0.0 | 构建于 2026-04-13*
+## 十二、业务驱动进化（Business-Driven Evolution）
+
+> 参考 Accio Work：根据生意进展迭代商业判断能力
+> 模块：`evolution/engine.py` → `BusinessDrivenEvolution`
+
+### 初始化
+
+```python
+from evolution import EvolutionEngine, BusinessDrivenEvolution
+
+engine = EvolutionEngine()
+biz = BusinessDrivenEvolution(engine)
+```
+
+### 追踪业务指标
+
+```python
+result = biz.track_business_metrics({
+    "task_completion_rate": 0.87,       # 任务完成率
+    "avg_response_time": 2.8,            # 平均响应时间（秒）
+    "failure_rate": 0.04,                 # 失败率
+    "pattern_recognition_rate": 0.72,     # 模式识别命中率
+    "decision_success_rate": 0.78,        # 决策成功率
+    "user_satisfaction": 4.3,             # 用户满意度（1-5）
+})
+# 返回：窗口均值、是否需要调整
+```
+
+### 评估决策质量
+
+```python
+eval_result = biz.evaluate_decision_quality(
+    decision_id="DEC-20260413-001",
+    decision_context={"trigger_type": "PerformanceTrigger", "task": "优化查询"},
+    outcome={
+        "success": True,
+        "task_completed": True,
+        "response_time": 2.1,
+        "user_rating": 4.5,
+        "pattern_promoted": False,
+    }
+)
+print(f"Quality: {eval_result['quality_score']:.2f}")
+# Quality: 0.83
+```
+
+### 自动调整策略参数
+
+```python
+adjustments = biz.adjust_strategy()
+# 基于指标窗口，自动调整 genes.json 中的进化基因
+# 例如：failure_rate 偏高 → 降低 failure_sensitivity_gene 阈值
+```
+
+### 晋升成功模式
+
+```python
+promoted = biz.promote_successful_patterns()
+# 分析最近20条决策，按触发类型聚合
+# 平均质量 ≥ 0.75 的模式 → 晋升为能力胶囊（CAP-xxx）
+```
+
+### 业务摘要
+
+```python
+summary = biz.get_business_summary()
+print(f"Window: {summary['metrics_window_size']}, "
+      f"Decisions: {summary['decisions_tracked']}, "
+      f"Avg Quality: {summary['recent_decision_avg_quality']}")
+```
+
+---
+
+## 十三、能力共享机制（Capability Sharing）
+
+> 参考 Accio Work：Skill 分享扩充能力库
+> 模块：`evolution/sharing.py` → `CapabilitySharing`
+
+### 目录结构
+
+```
+evolution/capabilities/           # 能力包存储
+evolution/capabilities/{id}/
+    SKILL.md                       # 标准 Skill 定义
+    metadata.json                  # 元数据（版本/评分/标签）
+    CHANGELOG.md                   # 版本变更记录
+    implementation/                # 可选：实现代码
+evolution/capabilities_registry.json  # 能力索引
+```
+
+### 导出能力
+
+```python
+from evolution import CapabilitySharing, EvolutionEngine
+
+sharing = CapabilitySharing()
+pkg = sharing.export_capability(
+    capsule_id="CAP-PATTERN-001",
+    name="数据库连接池优化",
+    description="自动识别连接池耗尽并建议扩展策略",
+    tags=["database", "performance", "optimization"],
+    trigger_conditions=["数据库查询超时", "连接池耗尽"],
+    implementation_type="pattern",
+)
+print(f"Exported: {pkg.capability_id}")
+# 产出：evolution/capabilities/SKL-TERN-001/ 下有 SKILL.md + metadata.json
+```
+
+### 导入能力
+
+```python
+# 从本地包导入
+result = sharing.import_capability("evolution/capabilities/SKL-TERN-001", import_type="local")
+
+# 从社区导入
+result = sharing.import_capability("community-capability-id", import_type="community")
+```
+
+### 评分能力
+
+```python
+rating = sharing.rate_capability(
+    "SKL-TERN-001",
+    quality=0.92,
+    coverage=0.85,
+    usability=0.88,
+)
+print(f"Overall: {rating['overall']:.2f}")
+```
+
+### 版本管理
+
+```python
+# 查询当前版本
+version_info = sharing.version_control("SKL-TERN-001")
+
+# 发布新版本
+result = sharing.version_control(
+    "SKL-TERN-001",
+    new_version="1.1.0",
+    changelog="增加自动扩容决策支持",
+    breaking=False,
+)
+```
+
+### 搜索与列表
+
+```python
+# 搜索能力
+results = sharing.search_capabilities("数据库", tags=["performance"])
+
+# 列出所有能力
+all_caps = sharing.list_capabilities(status="published")
+```
+
+---
+
+## 十四、Agent 协作进化（Collaborative Evolution）
+
+> 参考 Accio Work：Agent 组团队、分工协作
+> 模块：`evolution/collaborative.py` → `CollaborativeEvolution`
+
+### 目录结构
+
+```
+evolution/teams/                  # Agent 团队配置
+evolution/teams/{team_id}/
+    team.json                      # 团队配置
+    members.json                   # 成员信息
+    shared_state.json              # 共享进化状态
+    votes.jsonl                    # 决策投票记录
+```
+
+### 组建 Agent 团队
+
+```python
+from evolution import CollaborativeEvolution
+
+collab = CollaborativeEvolution()
+team_id = collab.form_agent_team(
+    name="业务优化团队",
+    strategy="hierarchical",   # hierarchical | democratic | specialized
+    members=[
+        {
+            "agent_id": "A1", "name": "Explorer-A",
+            "role": "explorer",           # 探索新模式
+            "specialization": ["data_analysis", "pattern_mining"],
+            "authority_level": 1,          # 1=观察, 2=建议, 3=决策
+        },
+        {
+            "agent_id": "A2", "name": "Verifier-B",
+            "role": "verifier",            # 验证假设可行性
+            "specialization": ["validation", "testing"],
+            "authority_level": 2,
+        },
+        {
+            "agent_id": "A3", "name": "Synthesizer-C",
+            "role": "synthesizer",         # 综合决策
+            "specialization": ["decision_making"],
+            "authority_level": 3,
+        },
+        {
+            "agent_id": "A4", "name": "Critic-D",
+            "role": "critic",              # 识别风险
+            "specialization": ["risk_analysis"],
+            "authority_level": 2,
+        },
+    ]
+)
+print(f"Team: {team_id}")
+```
+
+### 分布式学习
+
+```python
+# 各 Agent 独立探索后汇总发现
+results = collab.distribute_learning(
+    team_id,
+    task="优化数据库查询策略",
+    exploration_epochs=3,
+)
+# 返回：各 Agent 探索结果 + 综合建议
+```
+
+### 同步进化状态
+
+```python
+# 同步基因快照、模式和规则到团队共享状态
+sync = collab.sync_evolution_state(team_id)
+print(f"Synced: {sync['genes_count']} genes, "
+      f"{sync['patterns_count']} patterns, "
+      f"{sync['rules_count']} rules")
+```
+
+### 集体智慧决策
+
+```python
+decision = collab.collective_intelligence(
+    team_id,
+    topic="是否采用新的缓存策略",
+    options=["adopt", "reject", "defer"],
+    context={"current_hit_rate": 0.65, "target": 0.85, "complexity": "medium"},
+    threshold=0.6,
+)
+print(f"Decision: {decision.result}")       # adopted / rejected / deferred
+print(f"Reasoning:\n{decision.reasoning}")
+print(f"Votes: {dict(decision.votes)}")      # {A1: adopt, A2: defer, ...}
+```
+
+### 团队管理
+
+```python
+# 查看团队状态
+status = collab.get_team_status(team_id)
+print(f"Decisions adopted: {status['performance_metrics']['decisions_adopted']}")
+
+# 列出所有团队
+teams = collab.list_teams(status="active")
+
+# 解散团队
+collab.dissolve_team(team_id)
+```
+
+---
+
+## 十五、持续学习闭环
+
+```
+执行任务 → 记录结果 → 评估效果 → 提取模式 → 验证晋升 → 应用到下次
+    ↑                                                        ↓
+    ←←←←←←←←←← 反馈迭代 ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+```
+
+三层进化环：
+
+| 层次 | 组件 | 频率 | 驱动 |
+|------|------|------|------|
+| **微进化** | PerformanceTrigger / FailureTrigger | 实时 | 指标异常 |
+| **中进化** | BusinessDrivenEvolution | 每轮任务后 | 决策质量评分 |
+| **宏进化** | CollaborativeEvolution | 按需 | 重大业务决策 |
+
+四类触发器（原有）→ 业务驱动进化（新）→ 能力共享（新）→ Agent 协作（新）
+
+---
+
+*M-A3 Self-Evolution System v1.1.0 | 构建于 2026-04-13 | 增强版：Accio 自我进化机制集成*

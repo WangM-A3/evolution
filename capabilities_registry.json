@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "capabilities": {
+    "SKL-CAP-TEST-001-20260413": {
+      "name": "测试能力",
+      "description": "这是一个测试能力，用于验证导出功能。",
+      "version": "1.1.0",
+      "tags": [
+        "test",
+        "demo"
+      ],
+      "path": "evolution/capabilities/SKL-CAP-TEST-001-20260413",
+      "checksum": "62a1ae53aec16384",
+      "exported_at": "2026-04-13T16:35:14.363968",
+      "status": "published",
+      "rating": 0.8550000000000001
+    }
+  },
+  "community_index": {},
+  "last_updated": "2026-04-13T16:35:14.896387"
+}
