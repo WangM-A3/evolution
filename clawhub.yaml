@@ -1,0 +1,144 @@
+# ClawHub 技能配置文件
+# 文档：https://clawhub.ai/docs/publish
+
+skill:
+  name: "M-A3 自进化系统"
+  description: |
+    AI Agent自我进化引擎：六类自动触发器 + 模式聚合算法 + 验证闭环 + GEP进化协议。
+    让你的AI越用越聪明，自动从失败中学习，持续优化行为模式。
+
+  # 技能分类（ClawHub标准分类）
+  category: "developer-tools"
+  
+  # 标签（最多10个）
+  tags:
+    - "AI Agent"
+    - "自进化"
+    - "机器学习"
+    - "自动化"
+    - "Python"
+    - "开发者工具"
+    - "企业级"
+
+  # 触发词
+  triggers:
+    - "自进化"
+    - "AI学习"
+    - "Agent进化"
+    - "模式识别"
+    - "自动优化"
+    - "失败分析"
+    - "基因编程"
+    - "GEP协议"
+
+  # 版本信息
+  version: "1.1.0"
+  
+  # 作者信息
+  author:
+    name: "M-A3"
+    url: "https://github.com/WangM-A3"
+
+  # 仓库信息
+  repository:
+    type: "git"
+    url: "https://github.com/WangM-A3/evolution"
+
+  # 许可证
+  license: "MIT"
+
+  # 关键词（用于搜索）
+  keywords:
+    - "self-evolution"
+    - "AI agent"
+    - "machine learning"
+    - "pattern aggregation"
+    - "GEP protocol"
+    - "automatic trigger"
+    - "verification loop"
+
+# 定价配置
+pricing:
+  # 定价模式：subscription（订阅）| one-time（一次性）| free（免费）
+  model: "subscription"
+  
+  # 价格档位
+  tiers:
+    - name: "free"
+      price: 0
+      currency: "CNY"
+      period: "month"
+      features:
+        - "基础触发器（2类）"
+        - "基础模式聚合"
+        - "本地存储"
+        - "社区支持"
+      
+    - name: "personal"
+      price: 49
+      currency: "CNY"
+      period: "month"
+      features:
+        - "全部六类触发器"
+        - "完整模式聚合"
+        - "验证闭环+自动回滚"
+        - "GEP协议（8基因）"
+        - "能力共享"
+        - "邮件支持"
+      
+    - name: "team"
+      price: 199
+      currency: "CNY"
+      period: "month"
+      features:
+        - "个人版全部功能"
+        - "Agent协作进化"
+        - "多Agent状态同步"
+        - "团队事件共享"
+        - "工单支持（24h响应）"
+      
+    - name: "enterprise"
+      price: 999
+      currency: "CNY"
+      period: "month"
+      features:
+        - "团队版全部功能"
+        - "自定义基因扩展"
+        - "私有部署支持"
+        - "API集成指南"
+        - "专属技术顾问"
+        - "SLA保障（99.9%）"
+      
+    - name: "custom"
+      price: 9999
+      currency: "CNY"
+      period: "one-time"
+      features:
+        - "企业版全部功能"
+        - "定制开发"
+        - "现场部署支持"
+        - "培训服务"
+        - "优先特性开发"
+
+# 运行要求
+requirements:
+  python: ">=3.10"
+  dependencies:
+    - "pyyaml>=6.0"
+    - "aiofiles>=0.8"
+
+# 文件包含规则
+files:
+  include:
+    - "*.py"
+    - "*.json"
+    - "*.yaml"
+    - "*.md"
+    - "README.md"
+    - "PRICING.md"
+  exclude:
+    - "__pycache__"
+    - "*.pyc"
+    - ".git"
+    - "checkpoints/*"
+    - "logs/*"

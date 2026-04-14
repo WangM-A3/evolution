@@ -1,0 +1,53 @@
+{
+  "name": "m-a3-evolution",
+  "version": "1.1.0",
+  "description": "M-A3 Self-Evolution System - AI Agent自我进化引擎",
+  "author": {
+    "name": "M-A3",
+    "url": "https://github.com/WangM-A3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WangM-A3/evolution"
+  },
+  "license": "MIT",
+  "keywords": [
+    "self-evolution",
+    "AI agent",
+    "machine learning",
+    "pattern aggregation",
+    "GEP protocol",
+    "automatic trigger",
+    "verification loop",
+    "自适应系统"
+  ],
+  "engines": {
+    "python": ">=3.10"
+  },
+  "dependencies": {
+    "pyyaml": ">=6.0",
+    "aiofiles": ">=0.8"
+  },
+  "clawhub": {
+    "category": "developer-tools",
+    "tags": [
+      "AI Agent",
+      "自进化",
+      "机器学习",
+      "自动化",
+      "Python",
+      "开发者工具",
+      "企业级"
+    ],
+    "pricing": {
+      "model": "subscription",
+      "tiers": [
+        {"name": "free", "price": 0, "currency": "CNY", "period": "month"},
+        {"name": "personal", "price": 49, "currency": "CNY", "period": "month"},
+        {"name": "team", "price": 199, "currency": "CNY", "period": "month"},
+        {"name": "enterprise", "price": 999, "currency": "CNY", "period": "month"},
+        {"name": "custom", "price": 9999, "currency": "CNY", "period": "one-time"}
+      ]
+    }
+  }
+}
