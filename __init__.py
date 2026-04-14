@@ -43,6 +43,56 @@ from evolution.sharing import CapabilitySharing, CapabilityExport, CapabilityRat
 from evolution.collaborative import CollaborativeEvolution, AgentMember, TeamDecision, SharedEvolutionState
 from evolution.config import EvolutionConfig
 
+from evolution.verification_report import (
+    VerificationReport,
+    CheckResult,
+    CheckCategory,
+    ReportStatus,
+)
+from evolution.verifier import (
+    IndependentVerifier,
+    Criterion,
+    CriterionType,
+    CriterionSeverity,
+    Validators,
+)
+from evolution.stop_hook import (
+    StopHook,
+    HookMode,
+    HookEvent,
+    HookAttempt,
+    HookResult,
+)
+from evolution.sprint_contract import (
+    SprintContract,
+    ContractExecutor,
+    ContractStatus,
+    Deliverable,
+    AcceptanceCriterion,
+    ContractParty,
+    DeliverablePriority,
+)
+from evolution.three_agent_topology import (
+    ThreeAgentTopology,
+    PlannerAgent,
+    GeneratorAgent,
+    EvaluatorAgent,
+    TopologySession,
+    TaskStep,
+    ExecutionRecord,
+    AgentRole,
+    StepStatus,
+    SessionStatus,
+)
+from evolution.simplification_audit import (
+    SimplificationAuditor,
+    SimplificationReport,
+    AuditResult,
+    ComponentMetadata,
+    SimplifyAction,
+    ComponentType,
+)
+
 __all__ = [
     # Triggers
     "PerformanceTrigger",
@@ -79,4 +129,47 @@ __all__ = [
     "SharedEvolutionState",
     # Config
     "EvolutionConfig",
+    # Verification Report
+    "VerificationReport",
+    "CheckResult",
+    "CheckCategory",
+    "ReportStatus",
+    # Independent Verifier
+    "IndependentVerifier",
+    "Criterion",
+    "CriterionType",
+    "CriterionSeverity",
+    "Validators",
+    # Stop Hook
+    "StopHook",
+    "HookMode",
+    "HookEvent",
+    "HookAttempt",
+    "HookResult",
+    # Sprint Contract
+    "SprintContract",
+    "ContractExecutor",
+    "ContractStatus",
+    "Deliverable",
+    "AcceptanceCriterion",
+    "ContractParty",
+    "DeliverablePriority",
+    # Three-Agent Topology
+    "ThreeAgentTopology",
+    "PlannerAgent",
+    "GeneratorAgent",
+    "EvaluatorAgent",
+    "TopologySession",
+    "TaskStep",
+    "ExecutionRecord",
+    "AgentRole",
+    "StepStatus",
+    "SessionStatus",
+    # Simplification Audit
+    "SimplificationAuditor",
+    "SimplificationReport",
+    "AuditResult",
+    "ComponentMetadata",
+    "SimplifyAction",
+    "ComponentType",
 ]
